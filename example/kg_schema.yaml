@@ -1,0 +1,152 @@
+node_types:
+  CellType:
+    description: >
+      Any immune or non-immune cell type mentioned in the text, including
+      beta cells, T cell subsets, dendritic cells, and other immune effectors.
+    properties: [name]
+
+  Disease:
+    description: >
+      A medical condition or clinical diagnosis, including autoimmune disorders,
+      endocrine diseases, and disease endotypes.
+    properties: [name]
+
+  Gene:
+    description: >
+      A gene or the protein it encodes when discussed in the context of genetic
+      risk, expression, or function. Use the canonical HGNC gene symbol as name.
+    properties: [name]
+
+  Protein:
+    description: >
+      A protein, cytokine, chemokine, hormone, or peptide that is not primarily
+      identified by its gene symbol — e.g., proinsulin, HLA molecules,
+      chromogranin-A, PD-L1.
+    properties: [name]
+
+  BiologicalProcess:
+    description: >
+      A cellular, molecular, or immunological process, pathway, or mechanism,
+      such as ER stress, UPR, antigen presentation, apoptosis, or crinophagy.
+    properties: [name]
+
+  AnatomicalStructure:
+    description: >
+      A tissue, organ, organelle, lymphoid compartment, or anatomical
+      compartment, such as islets, pancreas, ER, pancreatic lymph nodes, gut.
+    properties: [name]
+
+  Pathogen:
+    description: >
+      A virus, bacterium, or other infectious agent implicated in disease
+      pathogenesis, such as Coxsackievirus B.
+    properties: [name]
+
+  Biomarker:
+    description: >
+      A measurable clinical or molecular marker used for disease staging,
+      monitoring, or diagnosis, such as C-peptide, proinsulin, or autoantibodies.
+    properties: [name]
+
+  Therapy:
+    description: >
+      A drug, therapeutic agent, intervention, or treatment strategy, including
+      immunotherapies, small molecules, and biologics.
+    properties: [name]
+
+  GeneticVariant:
+    description: >
+      A disease-associated allele, polymorphism, or gene variant class that
+      modifies disease risk or cell function, e.g., HLA Class II risk alleles.
+    properties: [name]
+
+edge_types:
+  DESTROYS:
+    description: One cell type kills or eliminates another cell type.
+    source: [CellType]
+    target: [CellType]
+
+  TRIGGERS:
+    description: An entity initiates or provokes a biological process or disease.
+    source: [CellType, Pathogen, BiologicalProcess, Protein, Gene, GeneticVariant]
+    target: [BiologicalProcess, Disease]
+
+  CAUSES:
+    description: >
+      A process, entity, or condition directly leads to another process,
+      disease, or outcome.
+    source: [BiologicalProcess, Pathogen, CellType, Protein]
+    target: [BiologicalProcess, Disease]
+
+  ACTIVATES:
+    description: An entity activates or stimulates another entity or process.
+    source: [Protein, Gene, CellType, BiologicalProcess, Pathogen]
+    target: [BiologicalProcess, Gene, Protein, CellType]
+
+  INHIBITS:
+    description: An entity suppresses or blocks another entity or process.
+    source: [Protein, Gene, Therapy, CellType, BiologicalProcess]
+    target: [BiologicalProcess, Gene, Protein, CellType, Disease]
+
+  UPREGULATES:
+    description: An entity increases the expression or activity of a gene or protein.
+    source: [Protein, CellType, BiologicalProcess, Pathogen, Gene]
+    target: [Gene, Protein]
+
+  DOWNREGULATES:
+    description: An entity decreases the expression or activity of a gene or protein.
+    source: [Protein, CellType, BiologicalProcess, Pathogen, Gene]
+    target: [Gene, Protein]
+
+  RELEASES:
+    description: A cell type secretes or releases a molecule, protein, or particle.
+    source: [CellType]
+    target: [Protein, Biomarker]
+
+  EXPRESSES:
+    description: A cell type expresses a gene or protein on its surface or intracellularly.
+    source: [CellType]
+    target: [Gene, Protein]
+
+  ATTRACTS:
+    description: A molecule or process recruits or attracts immune cells to a site.
+    source: [Protein, BiologicalProcess]
+    target: [CellType]
+
+  PREDISPOSES_TO:
+    description: A genetic variant or factor increases susceptibility to a disease.
+    source: [GeneticVariant, Gene]
+    target: [Disease]
+
+  ASSOCIATED_WITH:
+    description: >
+      A general association between an entity and a disease or process where
+      the directionality is not clearly causal.
+    source: [Gene, Protein, Biomarker, CellType, Pathogen, GeneticVariant]
+    target: [Disease, BiologicalProcess]
+
+  TREATS:
+    description: A therapy reduces, prevents, or ameliorates a disease or process.
+    source: [Therapy]
+    target: [Disease, BiologicalProcess]
+
+  BIOMARKER_FOR:
+    description: A biomarker is used to measure, stage, or monitor a disease or process.
+    source: [Biomarker, Protein]
+    target: [Disease, BiologicalProcess, CellType]
+
+  LOCATED_IN:
+    description: An entity is anatomically situated within a structure.
+    source: [CellType, AnatomicalStructure, BiologicalProcess]
+    target: [AnatomicalStructure]
+
+  INTERACTS_WITH:
+    description: >
+      Two entities physically interact (e.g., receptor–ligand, protein–protein).
+    source: [Protein, Gene]
+    target: [Protein, Gene, Pathogen]
+
+  POTENTIATES:
+    description: One entity amplifies or worsens the effect of another entity or process.
+    source: [Pathogen, Gene, BiologicalProcess, GeneticVariant]
+    target: [BiologicalProcess, Disease]

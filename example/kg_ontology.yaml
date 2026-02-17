@@ -1,0 +1,410 @@
+# Ontology for T1D Beta Cell Autoimmunity article
+# Maps surface forms / aliases found in the text to canonical entity names.
+# Format:
+#   canonical_name:
+#     type: <node type from kg_schema.yaml>
+#     aliases: [list of surface forms to merge into this canonical name]
+
+canonical_entities:
+
+  # --- Diseases ---
+  type 1 diabetes:
+    type: Disease
+    aliases:
+      - T1D
+      - type 1 diabetes mellitus
+      - islet autoimmunity          # when used to describe the full disease arc
+      - autoimmune diabetes
+
+  insulitis:
+    type: Disease
+    aliases:
+      - islet inflammation
+      - islet infiltration
+
+  # --- Cell Types ---
+  beta cells:
+    type: CellType
+    aliases:
+      - β-cells
+      - insulin-producing cells
+      - islet beta cells
+      - human beta cells
+
+  alpha cells:
+    type: CellType
+    aliases:
+      - islet alpha cells
+      - glucagon-producing cells
+
+  CD8+ T cells:
+    type: CellType
+    aliases:
+      - CD8+ T lymphocytes
+      - islet-reactive CD8+ T cells
+      - cytotoxic T cells
+      - CTLs
+
+  CD4+ T cells:
+    type: CellType
+    aliases:
+      - CD4+ T lymphocytes
+      - helper T cells
+
+  regulatory T cells:
+    type: CellType
+    aliases:
+      - Tregs
+      - regulatory T lymphocytes
+
+  tissue-resident T cells:
+    type: CellType
+    aliases:
+      - tissue-resident memory T cells
+      - Trm cells
+      - non-recirculating memory T cells
+
+  plasmacytoid dendritic cells:
+    type: CellType
+    aliases:
+      - pDCs
+      - plasmacytoid DCs
+
+  antigen-presenting cells:
+    type: CellType
+    aliases:
+      - APCs
+      - antigen presenting cells
+
+  neutrophils:
+    type: CellType
+    aliases:
+      - polymorphonuclear cells
+      - PMNs
+
+  # --- Genes ---
+  MDA5:
+    type: Gene
+    aliases:
+      - IFIH1
+      - melanoma differentiation-associated gene 5
+
+  TYK2:
+    type: Gene
+    aliases:
+      - tyrosine kinase 2
+
+  PTPN2:
+    type: Gene
+    aliases:
+      - protein tyrosine phosphatase non-receptor type 2
+      - TC-PTP
+
+  Bcl2l1:
+    type: Gene
+    aliases:
+      - Bcl-xL
+      - BCL2L1
+      - B-cell lymphoma extra-large
+
+  IRE1α:
+    type: Gene
+    aliases:
+      - ERN1
+      - inositol-requiring enzyme 1 alpha
+
+  XBP1:
+    type: Gene
+    aliases:
+      - XBP1s
+      - X-box binding protein 1
+      - spliced XBP1
+
+  NF-κB:
+    type: Gene
+    aliases:
+      - NF-kB
+      - NFKB1
+      - nuclear factor kappa B
+
+  ERAP1:
+    type: Gene
+    aliases:
+      - ER aminopeptidase 1
+      - endoplasmic reticulum aminopeptidase 1
+
+  # --- Proteins / Cytokines / Hormones ---
+  insulin:
+    type: Protein
+    aliases:
+      - mature insulin
+      - insulin peptide
+
+  proinsulin:
+    type: Protein
+    aliases:
+      - pro-insulin
+      - circulating proinsulin
+
+  pre-proinsulin:
+    type: Protein
+    aliases:
+      - preproinsulin
+      - pre-proinsulin signal sequence
+
+  HLA Class I:
+    type: Protein
+    aliases:
+      - HLA-I
+      - MHC Class I
+      - MHC-I
+      - HLA-I molecules
+
+  HLA Class II:
+    type: Protein
+    aliases:
+      - HLA-II
+      - MHC Class II
+      - MHC-II
+      - HLA Class II alleles       # allele context handled by GeneticVariant below
+
+  PD-L1:
+    type: Protein
+    aliases:
+      - programmed cell death ligand 1
+      - CD274
+
+  PD-1:
+    type: Protein
+    aliases:
+      - programmed cell death protein 1
+      - PDCD1
+      - CD279
+
+  IFN-α:
+    type: Protein
+    aliases:
+      - interferon alpha
+      - IFN-alpha
+      - type I IFN               # when specifically referring to IFN-α context
+
+  IFN-γ:
+    type: Protein
+    aliases:
+      - interferon gamma
+      - IFN-gamma
+
+  IL-1β:
+    type: Protein
+    aliases:
+      - interleukin-1 beta
+      - IL1B
+
+  TNF-α:
+    type: Protein
+    aliases:
+      - tumor necrosis factor alpha
+      - TNF
+
+  CCL2:
+    type: Protein
+    aliases:
+      - MCP-1
+      - monocyte chemoattractant protein 1
+
+  CXCL10:
+    type: Protein
+    aliases:
+      - IP-10
+      - interferon gamma-induced protein 10
+
+  GAD65:
+    type: Protein
+    aliases:
+      - glutamate decarboxylase 65
+      - GAD2
+
+  IA-2:
+    type: Protein
+    aliases:
+      - islet antigen 2
+      - PTPRN
+      - protein tyrosine phosphatase receptor type N
+
+  TXNIP:
+    type: Protein
+    aliases:
+      - thioredoxin-interacting protein
+      - thioredoxin interacting protein
+
+  GLP-1:
+    type: Protein
+    aliases:
+      - glucagon-like peptide 1
+      - glucagon-like peptide-1
+
+  chromogranin-A:
+    type: Protein
+    aliases:
+      - CgA
+      - CHGA
+
+  # --- Biological Processes ---
+  unfolded protein response:
+    type: BiologicalProcess
+    aliases:
+      - UPR
+      - ER unfolded protein response
+
+  ER stress:
+    type: BiologicalProcess
+    aliases:
+      - endoplasmic reticulum stress
+      - dysregulated ER stress
+      - pathological ER stress
+
+  antigen presentation:
+    type: BiologicalProcess
+    aliases:
+      - HLA-I presentation
+      - HLA-I processing and presentation
+      - MHC-I antigen presentation
+
+  crinophagy:
+    type: BiologicalProcess
+    aliases:
+      - granule degradation via crinophagy
+      - secretory granule degradation
+
+  transpeptidation:
+    type: BiologicalProcess
+    aliases:
+      - peptide transpeptidation
+      - hybrid peptide generation
+
+  apoptosis:
+    type: BiologicalProcess
+    aliases:
+      - apoptotic pathway
+      - programmed cell death
+      - beta cell death
+
+  peripheral tolerance:
+    type: BiologicalProcess
+    aliases:
+      - immune tolerance
+      - systemic tolerance
+      - thymic deletion
+
+  # --- Anatomical Structures ---
+  islets:
+    type: AnatomicalStructure
+    aliases:
+      - islets of Langerhans
+      - pancreatic islets
+
+  pancreatic lymph nodes:
+    type: AnatomicalStructure
+    aliases:
+      - pLNs
+      - pancreatic lymph node
+
+  endoplasmic reticulum:
+    type: AnatomicalStructure
+    aliases:
+      - ER
+      - the ER
+
+  crinosomes:
+    type: AnatomicalStructure
+    aliases:
+      - crinosome
+      - granule-lysosome fusion vesicles
+
+  # --- Pathogens ---
+  Coxsackievirus B:
+    type: Pathogen
+    aliases:
+      - CVB
+      - CVBs
+      - enterovirus B
+
+  # --- Therapies ---
+  ursodeoxycholic acid:
+    type: Therapy
+    aliases:
+      - UDCA
+      - bile acid chaperone
+
+  verapamil:
+    type: Therapy
+    aliases:
+      - verapamil hydrochloride
+
+  GLP-1 agonists:
+    type: Therapy
+    aliases:
+      - GLP-1 receptor agonists
+      - glucagon-like peptide 1 agonists
+
+  anti-PD-1/PD-L1 antibodies:
+    type: Therapy
+    aliases:
+      - anti-PD-1 antibodies
+      - anti-PD-L1 antibodies
+      - PD-1/PD-L1 inhibitors
+      - checkpoint inhibitors
+
+  JAK/TYK2/STAT inhibitors:
+    type: Therapy
+    aliases:
+      - JAK inhibitors
+      - TYK2 inhibitors
+      - STAT inhibitors
+      - JAK/STAT inhibitors
+
+  # --- Genetic Variants ---
+  HLA Class II risk alleles:
+    type: GeneticVariant
+    aliases:
+      - predisposing HLA Class II alleles
+      - HLA-II susceptibility alleles
+      - HLA risk alleles
+
+  MDA5 variants:
+    type: GeneticVariant
+    aliases:
+      - MDA5 gene variants
+      - IFIH1 variants
+      - MDA5 polymorphisms
+
+  TYK2 variants:
+    type: GeneticVariant
+    aliases:
+      - TYK2 gene variants
+      - TYK2 polymorphisms
+
+  PTPN2 variants:
+    type: GeneticVariant
+    aliases:
+      - PTPN2 gene variants
+      - PTPN2 polymorphisms
+
+  # --- Biomarkers ---
+  C-peptide:
+    type: Biomarker
+    aliases:
+      - connecting peptide
+      - C peptide
+
+  autoantibodies:
+    type: Biomarker
+    aliases:
+      - islet autoantibodies
+      - immune biomarkers
+
+  IFN-α signature:
+    type: Biomarker
+    aliases:
+      - interferon alpha signature
+      - type I IFN signature
