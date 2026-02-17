@@ -1,0 +1,13 @@
+{
+  "name": "kg-builder",
+  "description": "Knowledge graph builder plugins",
+  "plugins": [
+    {
+      "name": "kg-builder",
+      "description": "Build knowledge graphs from plain text or Markdown documents. Extracts entities and relationships, designs a graph schema, resolves entities to canonical forms, and emits nodes.csv + edges.csv in Neo4j bulk-import format.",
+      "repository": "https://github.com/yuanhao96/kg_builder",
+      "version": "0.1.0",
+      "keywords": ["knowledge-graph", "nlp", "entity-extraction", "neo4j", "information-extraction"]
+    }
+  ]
+}
