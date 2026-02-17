@@ -1,0 +1,13 @@
+{
+  "name": "kg-builder",
+  "version": "0.1.0",
+  "description": "Build knowledge graphs from plain text or Markdown documents. Extracts entities and relationships, designs a graph schema, resolves entities to canonical forms, and emits nodes.csv + edges.csv in Neo4j bulk-import format.",
+  "author": {
+    "name": "huangyuanhao",
+    "url": "https://github.com/huangyuanhao"
+  },
+  "repository": "https://github.com/huangyuanhao/kg-builder",
+  "homepage": "https://github.com/huangyuanhao/kg-builder#readme",
+  "license": "MIT",
+  "keywords": ["knowledge-graph", "nlp", "entity-extraction", "neo4j", "information-extraction"]
+}
