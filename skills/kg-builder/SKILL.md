@@ -1,6 +1,6 @@
 ---
 name: kg-builder
-description: This skill should be used when the user asks to "build a knowledge graph", "extract entities from a document", "create a KG from", "construct a knowledge graph from", "turn this document into a graph", "knowledge graph from text", or "extract relationships from". Guides a four-stage LLM pipeline that produces nodes.csv and edges.csv from plain text or Markdown documents.
+description: This skill should be used when the user asks to "build a knowledge graph", "extract entities from a document", "create a KG from", "construct a knowledge graph from", "turn this document into a graph", "knowledge graph from text", "extract relationships from", or "map entities to an ontology". Guides a four-stage LLM pipeline that produces nodes.csv and edges.csv from plain text or Markdown documents; supports custom schemas, extraction rubrics, and optional ontology alignment.
 version: 0.1.0
 ---
 
@@ -137,7 +137,7 @@ Knowledge graph complete.
 
 ### User-supplied schema (`kg_schema.yaml`)
 
-Place `kg_schema.yaml` in the working directory before running the skill. Format:
+If `kg_schema.yaml` exists in the working directory, read it using the Read tool and use it in place of `references/default-schema.yaml`. Expected format:
 
 ```yaml
 node_types:
@@ -157,7 +157,7 @@ edge_types:
 
 ### User-supplied rubric (`kg_rubric.md`)
 
-Place `kg_rubric.md` in the working directory. Write it as extraction guidelines in plain English:
+If `kg_rubric.md` exists in the working directory, read it using the Read tool and use it in place of `references/default-rubric.md`. Expected format: plain English extraction guidelines, e.g.:
 
 ```markdown
 Extract only Drug and Disease entities. Ignore persons and locations.
@@ -168,17 +168,10 @@ Include the dosage or clinical study as evidence where available.
 
 ### Inline customization
 
-If no files are provided, describe the schema and rubric conversationally at Step 0 and the skill will use your description in place of the default files.
+If no customization files are present but the user describes a schema or rubric conversationally during Step 0, use that description verbatim in place of the default files.
 
 ---
 
 ## Additional Resources
 
-### Reference Files
-
-- **`references/extract-prompts.md`** — Prompt templates for Pass 1 (entity extraction) and Pass 2 (relationship extraction)
-- **`references/schema-prompts.md`** — Prompt templates for schema inference (Branch A) and schema validation (Branch B)
-- **`references/resolve-prompts.md`** — Prompt templates for deduplication, triple rewriting, and ontology mapping
-- **`references/export-format.md`** — Neo4j bulk-import CSV specification and write instructions
-- **`references/default-rubric.md`** — Default extraction guidelines (Person, Organization, Location, Event, Concept)
-- **`references/default-schema.yaml`** — Default schema with 5 node types and 7 edge types
+All prompt templates and default assets are in `references/`. Each stage's `Load:` directive above points to the relevant file.
