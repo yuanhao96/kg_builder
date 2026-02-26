@@ -123,6 +123,15 @@ with open(EDGES_PATH, "w", encoding="utf-8-sig", newline="") as f:
     writer.writerows(rows)
 
 print("Evidence locations written to", EDGES_PATH)
+
+# Encode nodes.csv with UTF-8 BOM at the same time so both files are
+# consistently encoded even if the final re-encode step is not reached.
+NODES_PATH = "kg_output/nodes.csv"
+with open(NODES_PATH, "r", encoding="utf-8-sig") as f:
+    nodes_content = f.read()
+with open(NODES_PATH, "w", encoding="utf-8-sig", newline="") as f:
+    f.write(nodes_content)
+print("UTF-8 BOM applied to", NODES_PATH)
 PYEOF
 ```
 
