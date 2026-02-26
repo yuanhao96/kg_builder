@@ -111,8 +111,9 @@ Follow the export format specification exactly.
 
 1. Run `mkdir -p kg_output` via Bash tool
 2. Write `kg_output/nodes.csv` via Write tool
-3. Write `kg_output/edges.csv` via Write tool
-4. Verify integrity (all edge `:START_ID`/`:END_ID` present in nodes `:ID` column)
+3. Write `kg_output/edges.csv` via Write tool (leave `evidence_location` column empty)
+4. Run the evidence location detection script from `references/export-format.md`, substituting `{DOCUMENT_PATH}` with the input document path established in Step 0a
+5. Verify integrity (all edge `:START_ID`/`:END_ID` present in nodes `:ID` column)
 
 Report the final file paths and row counts to the user:
 

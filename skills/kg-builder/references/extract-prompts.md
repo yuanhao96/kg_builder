@@ -69,7 +69,7 @@ For each relationship, record:
   - source_id: id of the source entity
   - relation: relationship label (uppercase, underscore-separated)
   - target_id: id of the target entity
-  - evidence: the exact sentence that supports this relationship
+  - evidence: copy the supporting sentence verbatim from the DOCUMENT — use the exact characters as they appear; do not paraphrase, condense, or rephrase
 
 Output ONLY valid JSON. Do not include explanation or commentary.
 
