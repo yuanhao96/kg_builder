@@ -75,6 +75,8 @@ For each relationship, record:
   - evidence: copy the supporting sentence verbatim from the DOCUMENT — use the exact characters as they appear; do not paraphrase, condense, or rephrase
   - citation_keys: list the keys from CITATION KEYS AVAILABLE that appear in or immediately adjacent to the evidence sentence; use [] if none
 
+Granularity rule: when the text describes a chain of events (e.g., "A activates B, which then causes C"), extract each step as a separate triple (A→B and B→C). Do not collapse multi-step chains into a single A→C edge. Prefer granular, step-by-step triples over high-level summary edges.
+
 Output ONLY valid JSON. Do not include explanation or commentary.
 
 Format:
@@ -93,6 +95,40 @@ Insert the JSON output from Pass 1.
 
 - If `kg_output/citation_map.json` exists and is non-empty: insert a newline-separated list of all keys (e.g. `[14]`, `(Smith et al., 2020)`).
 - Otherwise: insert `none`.
+
+---
+
+## Pass 2b — Isolated-Node Check
+
+After Pass 2 completes, check for entities that appear in no triple (neither as `source_id` nor `target_id`). For each isolated entity:
+
+1. Re-read the document section(s) where that entity appears.
+2. Extract at least one relationship for it, or remove the entity from the entity list if no relationship can be found.
+
+This step requires no LLM call if you can identify isolated nodes mechanically. If the entity list is large, send this prompt (fill in `{ISOLATED_ENTITIES}` and `{DOCUMENT}`):
+
+```
+You are an expert information-extraction assistant.
+
+DOCUMENT:
+{DOCUMENT}
+
+The following entities were extracted but have no relationships yet:
+{ISOLATED_ENTITIES}
+
+Task: For each isolated entity, find at least one relationship to another known entity that is explicitly stated or strongly implied in the DOCUMENT. Output triples in the same JSON format as Pass 2. If no relationship can be found for an entity, omit it.
+
+Granularity rule: when the text describes a chain A → B → C, extract each step separately.
+
+Output ONLY valid JSON:
+{
+  "triples": [
+    { "source_id": "e1", "relation": "LABEL", "target_id": "e2", "evidence": "...", "citation_keys": [] }
+  ]
+}
+```
+
+Merge any new triples into the Pass 2 output before proceeding to Stage 2.
 
 ---
 

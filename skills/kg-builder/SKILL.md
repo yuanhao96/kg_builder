@@ -83,9 +83,10 @@ Write the value of `citation_map` (the inner object) to `kg_output/citation_map.
 
 **Load:** `references/extract-prompts.md`
 
-Follow the two-pass procedure in that file exactly:
+Follow the three-pass procedure in that file exactly:
 1. **Pass 1** — extract entities from the document
-2. **Pass 2** — extract relationships between entities
+2. **Pass 2** — extract relationships between entities (granularity rule: A → B → C chains must be extracted as separate triples, not collapsed into A → C)
+3. **Pass 2b** — isolated-node check: any entity with no edges triggers a targeted re-read to recover missed relationships or confirm the entity should be removed
 
 Fill in `{RUBRIC}` with the resolved rubric (Step 0c).
 Fill in `{DOCUMENT}` with the document content.
