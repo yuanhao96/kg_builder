@@ -11,7 +11,7 @@ Give it a document, get back a knowledge graph. The plugin runs a four-stage LLM
 3. **Resolve** — deduplicates entity surface forms and maps to canonical names
 4. **Export** — writes `kg_output/nodes.csv` and `kg_output/edges.csv` in [Neo4j bulk-import format](https://neo4j.com/docs/operations-manual/current/tools/neo4j-admin/neo4j-admin-import/)
 
-No Python libraries required — all reasoning is done via LLM prompts.
+All reasoning is done via LLM prompts. One optional Python library — `rapidfuzz` — is used as a fuzzy-match fallback when locating evidence sentences in the source document. If it is not installed, location detection still runs but falls back to exact matching only.
 
 ## Installation
 
@@ -36,7 +36,7 @@ The skill will ask whether to run **interactively** (confirm at each stage) or *
 ```
 kg_output/
 ├── nodes.csv    # :ID, :LABEL, name, ontology_id
-└── edges.csv    # :START_ID, :END_ID, :TYPE, evidence
+└── edges.csv    # :START_ID, :END_ID, :TYPE, evidence, evidence_location
 ```
 
 Compatible with Neo4j, NetworkX, Gephi, and any tool that accepts CSV edge lists.
