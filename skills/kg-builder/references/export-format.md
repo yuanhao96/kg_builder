@@ -75,7 +75,7 @@ After writing both files, re-encode them with a UTF-8 BOM so that Excel, Google 
 ```bash
 python3 -c "
 for fname in ['kg_output/nodes.csv', 'kg_output/edges.csv']:
-    with open(fname, 'r', encoding='utf-8') as f:
+    with open(fname, 'r', encoding='utf-8-sig') as f:
         content = f.read()
     with open(fname, 'w', encoding='utf-8-sig', newline='') as f:
         f.write(content)
