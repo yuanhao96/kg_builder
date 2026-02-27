@@ -49,18 +49,48 @@ If neither file exists and the user described a schema/rubric inline, use their 
 
 Report to the user which files will be used before proceeding.
 
+### 0d. Citation extraction
+
+Scan the document for in-text citations and a reference/bibliography section. Send this prompt, filling in `{DOCUMENT}` with the full document text:
+
+```
+You are a citation extraction assistant.
+
+DOCUMENT:
+{DOCUMENT}
+
+Task:
+1. Identify all unique in-text citation markers (e.g. [14], [Smith2020], (Smith et al., 2020)).
+2. Find the reference list or bibliography section.
+3. Map each citation marker to its full reference string.
+
+Output ONLY valid JSON. If no citations or reference section are found, output {"citation_map": {}}.
+
+Format:
+{
+  "citation_map": {
+    "[14]": "Smith J, Jones A. Title. Journal. 2020;12(3):45-67.",
+    "(Smith et al., 2020)": "Smith J, Jones A. Title. Journal. 2020;12(3):45-67."
+  }
+}
+```
+
+Write the value of `citation_map` (the inner object) to `kg_output/citation_map.json` using the Write tool. Create `kg_output/` first if needed. Write `{}` if no citations were found.
+
 ---
 
 ## Stage 1 — Entity & Relationship Extraction
 
 **Load:** `references/extract-prompts.md`
 
-Follow the two-pass procedure in that file exactly:
+Follow the three-pass procedure in that file exactly:
 1. **Pass 1** — extract entities from the document
-2. **Pass 2** — extract relationships between entities
+2. **Pass 2** — extract relationships between entities (granularity rule: A → B → C chains must be extracted as separate triples, not collapsed into A → C)
+3. **Pass 2b** — isolated-node check: any entity with no edges triggers a targeted re-read to recover missed relationships or confirm the entity should be removed
 
 Fill in `{RUBRIC}` with the resolved rubric (Step 0c).
 Fill in `{DOCUMENT}` with the document content.
+Fill in `{CITATION_KEYS}` with the list of keys from `kg_output/citation_map.json` (Step 0d), or `none` if the map is empty.
 
 **Output:** JSON object with `entities` array and `triples` array.
 
@@ -111,8 +141,10 @@ Follow the export format specification exactly.
 
 1. Run `mkdir -p kg_output` via Bash tool
 2. Write `kg_output/nodes.csv` via Write tool
-3. Write `kg_output/edges.csv` via Write tool
-4. Verify integrity (all edge `:START_ID`/`:END_ID` present in nodes `:ID` column)
+3. Write `kg_output/edges.csv` via Write tool (leave `evidence_location` empty; write raw citation keys into `references`)
+4. Run the evidence location detection script from `references/export-format.md`, substituting `{DOCUMENT_PATH}` with the input document path established in Step 0a
+5. Run the citation expansion script from `references/export-format.md`
+6. Verify integrity (all edge `:START_ID`/`:END_ID` present in nodes `:ID` column)
 
 Report the final file paths and row counts to the user:
 
