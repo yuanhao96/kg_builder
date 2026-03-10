@@ -70,11 +70,12 @@ Task: Validate and reconcile the extraction against the user schema.
 
 Steps:
 1. For each entity in the extraction, verify its type is defined in USER SCHEMA.
-   - If an entity type is missing from the schema, flag it and suggest the closest match.
-   - Do NOT add new types to the schema; report mismatches.
+   - If an entity type is not in the schema, silently map it to the closest matching schema type.
+   - Do NOT add new types to the schema.
 2. For each triple in the extraction, verify its relation label is defined in USER SCHEMA.
-   - If a relation label is missing, flag it and suggest the closest match.
+   - If a relation label is not in the schema, silently map it to the closest matching schema label.
 3. Produce a reconciled extraction where all entity types and relation labels are mapped to valid schema types.
+4. Record each mapping you made in the `warnings` field (for informational display in interactive mode).
 
 Output ONLY valid JSON:
 {

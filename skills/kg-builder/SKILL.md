@@ -112,9 +112,7 @@ Fill in placeholders as described in the reference file.
 
 **Output:** Validated schema JSON + (possibly reconciled) extraction JSON.
 
-If Branch B produces warnings, surface them to the user before continuing (even in single-shot mode).
-
-**Interactive checkpoint:** Show schema node types and edge types. Ask: `Proceed / Edit / Re-run`
+**Interactive checkpoint:** Show schema node types and edge types. If Branch B produced any auto-corrections (entities or relations mapped to the closest schema type), list them here as informational notes. Ask: `Proceed / Edit / Re-run`
 
 ---
 
